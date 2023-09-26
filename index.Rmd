@@ -29,6 +29,8 @@ create_app_link <- function(mode = c("app", "editor"), header = TRUE) {
   }
   
   tags$iframe(
+    # To allow the content to fill the full screen card
+    class = "html-fill-item",
     src = app_url, 
     height = "700", 
     width = "100%",
@@ -50,7 +52,7 @@ create_app_link <- function(mode = c("app", "editor"), header = TRUE) {
 Below is an embedded R shinylive app running in a separate server. The iframe is included in a `{bslib}` card. 
 
 ```{r, eval=TRUE, echo=FALSE}
-card(create_app_link("app", FALSE))
+card(create_app_link("app", FALSE), full_screen = TRUE)
 ```
 
 ## Embedded app + editor
@@ -58,5 +60,5 @@ card(create_app_link("app", FALSE))
 An embedded shinylive app editor. User can share the code. Note: the plot won't likely show on smaller screen leading to an error in the R console.
 
 ```{r, eval=TRUE, echo=FALSE}
-card(create_app_link("editor"))
+card(create_app_link("editor"), full_screen = TRUE)
 ```
