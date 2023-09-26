@@ -14,19 +14,22 @@ knitr::opts_chunk$set(
 )
 library(shiny)
 library(bslib)
-```
 
-# shinylivePkgDown
-
-<!-- badges: start -->
-<!-- badges: end -->
-
-The goal of shinylivePkgDown is to ...
-
-```{r, eval=TRUE, echo=FALSE}
-card(
+create_app_link <- function(mode = c("app", "editor"), header = TRUE) {
+  mode <- match.arg(mode)
+  
+  app_code <- "NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IdJiw71OAFgAiUHsIgiArrQAEAHgC06gCYLu9Iiz0AFKAHM47EevWlapanHUBedULAAhIgA91AEEzAEkvXDt9Q2NTAAk4KD04RnYBCIh7Ax4Yxj0AZVok+hZU9Mzok1zfPQ5I+1IrTgASTlJWF1swYxr1EHViggBrS0YiFQg9bWJqIkZEdUtuIlaAd15yAF8vNLr1ADNqNT0sIhXbDPtLqAJHEm8VUlISTqfLSxcAfWM-cM8wABUiG8XOpfD8wDsLpd1NdbhB7o9nl5GHAYEQAG5wL7+X5eLCojGuMG-AjUBScdx-eiWbQGCDWRjbMrQmE3Wh3B5PCCdFGtWZY764sD4vko0E4vDqUnkyleanaTgqAgEOCcThM3b2WHs+GcpFgFSoAzkbHg3B-ACqRqg5HFZqlZLVsq6NNQjFoMAk212kOhTFKu2+5xZDicII85D8pAA8g9UA9Ot8Pq0bXANVDLl4wf0iDVwpr1IVnTBWIK8AXpmTUJwGOH1P8sBaAKLM6Gk5ZQeh1hvN1uXVAzGNxhNeAdEUjejNKexKJQiTjJTGMLS6PbjNnPPjx0jmsakbfmhdqnUCXqRPfbppj0gr9QoibJMyD9ggXYogCO7AAhFuHk0S98TSVmgC56NO-bPowECzDA7AAEwAAwIQI4EbOB57DqQTRJimto6HeFBJIw-xwFGL67Lhrj4bQezqOwv5YQB-hAUQ1BVqBp5eMB1ZwHoXjqHA1ALn866sexvFeLsqAKOQnQALKsDmAS0OqkqUah6EXEQUiLnATaYmQ9EQJerzvAK-jmq+GaGsacBgp0TH2tqJDOqZLiTvYaGROeOmMJi+kUKQRmXiiaKYqalm7DZqb2V4jm-M5GQeMiBKYh56heRcPkLn5ekGUFDFNLyTwohFZ7Wda5CxWA8WSolzrFfy6WZfY2W6QFhmFdFJrfJFFW2bFGatTVpYSuaBb1clBqVWmkoFkQqBwhSHh0K0wYhqGziuB43BwZ0ABycArJt7mSlkRiVHo3iJNY7AAIzmtMszOm6HpehCvobbhKjLX8dIMriQ2XJwrGFPEiTJJSPYtgW9grIUpDcJS0gFuBM6RC1nhab5-n5cFf6OU06IqbWcB9W2Ykgbxt40XRhWE9xHF-IzElgAJQmuF4olsVTfFgLsxM1l2VG6LT+OMaNfhEyTwucWAguk-xgnCV4vB6Ekyj8xm8BqlYIvqNJrQ2F4ClKYWqmPZTPF6ONKATL8CuyxRSwrPt440bQBA2jq7A65wevmm0qDbX8KwsBAfCWL8egqMwcKUndGkiFsygQDwfCsIE6DsGoh66YwShgBsuDgNA8BULITZ5AAwlgIRmP8ITRvteCECQ5CUMg-xhnA8zxGxRDqHkvD8F+IiBA8SxzOo8jE3o6gAOLMBAABWJAYOPk+zBajDUPM3CPKgiAAPTH+6ZDJHs1xwBgxAwCIAAynsUAu8xySE-wiLIKkDlArBybmXuQ8XZewXCIf4jR5jWEeJHBUDRGDkD4hAf4rBg7zGHhnEQRcS6QFgAgZA+JEjwAwDAPQrdiAX07gCXgFIVIwgyP3GY6gADqsxqDzwwfwGE6AN4QCLgAXSAA"
+  
+  app_url <- sprintf(
+    "https://shinylive.rinterface.com/%s/#code=%s", mode, app_code
+  )
+  
+  if (!header) {
+    app_url <- paste0(app_url, "&h=0")
+  }
+  
   tags$iframe(
-    src = "https://shinylive.rinterface.com/app/#h=0&code=NobwRAdghgtgpmAXGKAHVA6ASmANGAYwHsIAXOMpMAGwEsAjAJykYE8AKAZwAtaJWAlAB0IdJiw71OAFgAiUHsIgiArrQAEAHgC06gCYLu9Iiz0AFKAHM47EevWlapanHUBedULAAhIgA91AEEzAEkvXDt9Q2NTAAk4KD04RnYBCIh7Ax4Yxj0AZVok+hZU9Mzok1zfPQ5I+1IrTgASTlJWF1swYxr1EHViggBrS0YiFQg9bWJqIkZEdUtuIlaAd15yAF8vNLr1ADNqNT0sIhXbDPtLqAJHEm8VUlISTqfLSxcAfWM-cM8wABUiG8XOpfD8wDsLpd1NdbhB7o9nl5GHAYEQAG5wL7+X5eLCojGuMG-AjUBScdx-eiWbQGCDWRjbMrQmE3Wh3B5PCCdFGtWZY764sD4vko0E4vDqUnkyleanaTgqAgEOCcThM3b2WHs+GcpFgFSoAzkbHg3B-ACqRqg5HFZqlZLVsq6NNQjFoMAk212kOhTFKu2+5xZDicII85D8pAA8g9UA9Ot8Pq0bXANVDLl4wf0iDVwpr1IVnTBWIK8AXpmTUJwGOH1P8sBaAKLM6Gk5ZQeh1hvN1uXVAzGNxhNeAdEUjejNKexKJQiTjJTGMLS6PbjNnPPjx0jmsakbfmhdqnUCXqRPfbppj0gr9QoibJMyD9ggXYogCO7AAhFuHk0S98TSVmgC56NO-bPowECzDA7AAEwAAwIQI4EbOB57DqQTRJimto6HeFBJIw-xwFGL67Lhrj4bQezqOwv5YQB-hAUQ1BVqBp5eMB1ZwHoXjqHA1ALn866sexvFeLsqAKOQnQALKsDmAS0OqkqUah6EXEQUiLnATaYmQ9EQJerzvAK-jmq+GaGsacBgp0TH2tqJDOqZLiTvYaGROeOmMJi+kUKQRmXiiaKYqalm7DZqb2V4jm-M5GQeMiBKYh56heRcPkLn5ekGUFDFNLyTwohFZ7Wda5CxWA8WSolzrFfy6WZfY2W6QFhmFdFJrfJFFW2bFGatTVpYSuaBb1clBqVWmkoFkQqBwhSHh0K0wYhqGziuB43BwZ0ABycArJt7mSlkRiVHo3iJNY7AAIzmtMszOm6HpehCvobbhKjLX8dIMriQ2XJwrGFPEiTJJSPYtgW9grIUpDcJS0gFuBM6RC1nhab5-n5cFf6OU06IqbWcB9W2Ykgbxt40XRhWE9xHF-IzElgAJQmuF4olsVTfFgLsxM1l2VG6LT+OMaNfhEyTwucWAguk-xgnCV4vB6Ekyj8xm8BqlYIvqNJrQ2F4ClKYWqmPZTPF6ONKATL8CuyxRSwrPt440bQBA2jq7A65wevmm0qDbX8KwsBAfCWL8egqMwcKUndGkiFsygQDwfCsIE6DsGoh66YwShgBsuDgNA8BULITZ5AAwlgIRmP8ITRvteCECQ5CUMg-xhnA8zxGxRDqHkvD8F+IiBA8SxzOo8jE3o6gAOLMBAABWJAYOPk+zBajDUPM3CPKgiAAPTH+6ZDJHs1xwBgxAwCIAAynsUAu8xySE-wiLIKkDlArBybmXuQ8XZewXCIf4jR5jWEeJHBUDRGDkD4hAf4rBg7zGHhnEQRcS6QFgAgZA+JEjwAwDAPQrdiAX07gCXgFIVIwgyP3GY6gADqsxqDzwwfwGE6AN4QCLgAXSAA", 
+    src = app_url, 
     height = "700", 
     width = "100%",
     style = "border: 1px solid rgba(0,0,0,0.175); border-radius: .375rem;",
@@ -34,5 +37,26 @@ card(
     allow = "autoplay",
     `data-external` = "1"
   )
-)
+}
+```
+
+# shinylivePkgDown
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+## Embedded app
+
+Below is an embedded R shinylive app running in a separate server. The iframe is included in a `{bslib}` card. 
+
+```{r, eval=TRUE, echo=FALSE}
+card(create_app_link("app", FALSE))
+```
+
+## Embedded app + editor
+
+An embedded shinylive app editor. User can share the code. Note: the plot won't likely show on smaller screen leading to an error in the R console.
+
+```{r, eval=TRUE, echo=FALSE}
+card(create_app_link("editor"))
 ```
