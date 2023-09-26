@@ -14,3 +14,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://github.com/DivadNojnarg/shinylivePkgDown
+BugReports: https://github.com/DivadNojnarg/shinylivePkgDown/issues
